@@ -15,18 +15,8 @@ router.get('/movies', (req, res) => {
 	fetch(url, config)
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data.results[0]);
-			const movies = data.results.map((el) => ({
-				title: el.title,
-				poster: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
-				voteAverage: el.vote_average,
-				voteCount: el.vote_count,
-				overview:
-					el.overview.split('').length > 250
-						? `${el.overview.slice(0, 250)} ...`
-						: el.overview,
-			}));
-			console.log(movies);
+			const movies = data.results;
+
 			data
 				? res.json({ result: true, movies })
 				: res.json({ result: false, error: 'No movies' });
